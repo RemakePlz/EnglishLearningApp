@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\android\\gjckeystore\\englishlearningapp.jks')
+            storePassword 'qweasd123.'
+            keyAlias 'key0'
+            keyPassword 'qweasd123.'
+        }
+        release {
+            storeFile file('D:\\android\\gjckeystore\\englishlearningapp.jks')
+            storePassword 'qweasd123.'
+            keyAlias 'key0'
+            keyPassword 'qweasd123.'
+        }
+    }
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId 'com.zuel.englishlearningapp'
+        minSdkVersion 23
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 29
+        versionCode 1
+        versionName '1.0'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi','x86' //, 'armeabi-v7a','arm64-v8a'
+        }
+
+    }
+    // 解决 native libraries 不支持cpu的体系结构。允许模拟器调试
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+
+    buildTypes {
+        release {
+                // true - 打开混淆
+                minifyEnabled false
+                // true - 打开资源压缩
+                //shrinkResources true
+                // 用于设置Proguard的规划路径；
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'org.litepal.android:java:3.0.0'
+    implementation 'com.android.support:appcompat-v7:29.0.0'
+    implementation 'com.android.support:recyclerview-v7:29.0.0'
+    implementation 'com.android.support:cardview-v7:29.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    implementation 'com.github.razerdp:BasePopup:2.2.1'
+    implementation 'com.android.support:design:29.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.lihangleo2:ShadowLayout:3.1.1'
+    implementation 'me.grantland:autofittextview:0.2.+'
+    implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'android.arch.work:work-runtime:1.0.1'
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+    implementation 'cz.msebera.android:httpclient:4.4.1.1'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'io.github.sinaweibosdk:core:11.12.0@aar'
+}
